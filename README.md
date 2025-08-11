@@ -1,28 +1,24 @@
 # Proyecto-crud-tareas-Django
 practica
-
-```text
 # 📘 Material para Estudiantes: Aplicación CRUD de Tareas en Python Django
 
-Este documento guía paso a paso la creación de una **aplicación CRUD de tareas** usando **Django** en **Windows**, ideal para estudiantes.  
-Se detallan todos los procedimientos, estructura de carpetas, código completo y configuraciones necesarias.
+Este documento te guiará paso a paso para crear una **aplicación CRUD de tareas** usando **Django** en **Windows**, ideal para estudiantes.  
+Incluye todos los procedimientos, estructura de carpetas, código completo y configuraciones necesarias.
 
 ---
 
-## 🔧 PROCEDIMIENTOS INICIALES
+## 🔧 Procedimientos Iniciales
 
-### ✅ 1. Acceder a la Terminal de Windows
-```text
-- Presiona las teclas: [Windows + R]
-- Escribe: "cmd"
-- Presiona [Enter]
-```
+### 1. Acceder a la Terminal de Windows
+- Presiona las teclas: **`Windows + R`**
+- Escribe: **`cmd`**
+- Presiona **Enter**
 
 > Esto abrirá la **ventana de Command Prompt (cmd)**.
 
 ---
 
-### ✅ 2. Crear carpeta de trabajo “Crud”
+### 2. Crear carpeta de trabajo “Crud”
 ```cmd
 mkdir Crud
 cd Crud
@@ -32,7 +28,7 @@ cd Crud
 
 ---
 
-### ✅ 3. Desde terminal, abrir Visual Studio Code
+### 3. Desde terminal, abrir Visual Studio Code
 ```cmd
 code .
 ```
@@ -41,26 +37,26 @@ code .
 
 ---
 
-### ✅ 4. Verificar instalación de Python
+### 4. Verificar instalación de Python
 ```cmd
 python --version
 ```
 
-> Salida esperada: `Python 3.x.x`  
-> Si no está instalado, descarga Python desde [python.org](https://www.python.org/downloads/).
+> Debe mostrar algo como: `Python 3.x.x`  
+> Si no aparece, instala Python desde [python.org](https://www.python.org/downloads/).
 
 ---
 
-### ✅ 5. Crear entorno virtual
+### 5. Crear entorno virtual
 ```cmd
 python -m venv venv
 ```
 
-> Crea una carpeta `venv` con el entorno virtual.
+> Crea una carpeta `venv` con el entorno virtual de Python.
 
 ---
 
-### ✅ 6. Activar entorno virtual
+### 6. Activar entorno virtual
 ```cmd
 venv\Scripts\activate
 ```
@@ -69,17 +65,15 @@ venv\Scripts\activate
 
 ---
 
-### ✅ 7. Seleccionar intérprete de Python en VS Code
-```text
-- Abre VS Code
-- Presiona [Ctrl + Shift + P]
-- Escribe: "Python: Select Interpreter"
-- Selecciona el que diga: "venv" o con ruta hacia tu carpeta Crud\venv\...
-```
+### 7. Seleccionar intérprete de Python en VS Code
+- Abre VS Code.
+- Presiona **`Ctrl + Shift + P`**.
+- Escribe: **"Python: Select Interpreter"**.
+- Elige el que diga: `venv` o con ruta como: `./Crud/venv/...`.
 
 ---
 
-### ✅ 8. Instalar Django
+### 8. Instalar Django
 ```cmd
 pip install django
 ```
@@ -88,40 +82,42 @@ pip install django
 
 ---
 
-### ✅ 9. Crear proyecto Django “backend_tareas” sin duplicar carpetas
+### 9. Crear proyecto Django “backend_tareas” sin duplicar carpetas
 ```cmd
 django-admin startproject backend_tareas .
 ```
 
-> El punto (`.`) evita crear una carpeta extra. El proyecto se crea en la carpeta actual.
+> El punto (`.`) evita crear una carpeta extra. El proyecto se genera en la carpeta actual.
 
 ---
 
-### ✅ 10. Ejecutar el servidor Django
+### 10. Ejecutar el servidor Django
 ```cmd
 python manage.py runserver
 ```
 
-> Abre tu navegador y ve a: `http://127.0.0.1:8000`  
+> Abre tu navegador y visita: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
 > Debe mostrarse la página de bienvenida de Django.
 
 ---
 
-### ✅ 11. Crear aplicación “app_tareas”
+### 11. Crear aplicación “app_tareas”
 ```cmd
 python manage.py startapp app_tareas
 ```
 
-> Crea una carpeta `app_tareas` con los archivos base de la app.
+> Crea una carpeta `app_tareas` con los archivos base de la aplicación.
 
 ---
 
-## 🗂️ Estructura completa de carpetas y archivos (crea esta estructura)
+## 🗂️ Estructura completa de carpetas y archivos
 
-```text
+Crea esta estructura dentro de la carpeta `Crud/`:
+
+```
 Crud/
 │
-├── venv/                          # Entorno virtual
+├── venv/                          # Entorno virtual (automático)
 ├── backend_tareas/                # Proyecto Django
 │   ├── __init__.py
 │   ├── settings.py
@@ -140,28 +136,29 @@ Crud/
 │       ├── crear_tarea.html
 │       └── actualizar_tarea.html
 │
-├── static/                        # Crear dentro de templates
+├── static/                        # Crear manualmente
 │   └── css/
 │       └── styles.css
 │
 ├── manage.py
-└── db.sqlite3                     # Se crea al hacer migrate
+└── db.sqlite3                     # Se crea automáticamente con migrate
 ```
 
 ---
 
 ## 🧱 Modelo: Tarea (tarea, completado)
 
-### 📄 app_tareas/models.py
+### 📄 `app_tareas/models.py`
+
 ```python
 from django.db import models
 
-# <span style="color: red;">class</span> <span style="color: white;">Tarea</span>(<span style="color: white;">models.Model</span>):
-    # <span style="color: white;">tarea</span> = <span style="color: red;">models.CharField</span>(<span style="color: yellow;">max_length=200</span>)
-    # <span style="color: white;">completado</span> = <span style="color: red;">models.BooleanField</span>(<span style="color: yellow;">default=False</span>)
+class Tarea(models.Model):
+    tarea = models.CharField(max_length=200)
+    completado = models.BooleanField(default=False)
 
-    # <span style="color: red;">def</span> <span style="color: white;">__str__</span>(<span style="color: white;">self</span>):
-        # <span style="color: red;">return</span> <span style="color: white;">self.tarea</span>
+    def __str__(self):
+        return self.tarea
 ```
 
 ---
@@ -173,78 +170,76 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-> Genera y aplica la migración para crear la tabla en la base de datos.
+> Estos comandos crean y aplican los cambios en la base de datos.
 
 ---
 
 ## ⚙️ Configuraciones en settings.py y urls.py
 
-### 📄 backend_tareas/settings.py
-```python
-# ... otras configuraciones ...
+### 📄 `backend_tareas/settings.py`
 
-# <span style="color: green;"># Agregar 'app_tareas' a INSTALLED_APPS</span>
-<span style="color: red;">INSTALLED_APPS</span> = [
-    <span style="color: yellow;">'django.contrib.admin'</span>,
-    <span style="color: yellow;">'django.contrib.auth'</span>,
-    <span style="color: yellow;">'django.contrib.contenttypes'</span>,
-    <span style="color: yellow;">'django.contrib.sessions'</span>,
-    <span style="color: yellow;">'django.contrib.messages'</span>,
-    <span style="color: yellow;">'django.contrib.staticfiles'</span>,
-    <span style="color: yellow;">'app_tareas'</span>,  <span style="color: green;"># Añadir esta línea</span>
+```python
+import os  # Asegúrate de tener esta línea al inicio
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app_tareas',  # Agrega tu app aquí
 ]
 
-# <span style="color: green;"># Configuración de templates</span>
-<span style="color: red;">TEMPLATES</span> = [
+TEMPLATES = [
     {
-        <span style="color: yellow;">'BACKEND'</span>: <span style="color: yellow;">'django.template.backends.django.DjangoTemplates'</span>,
-        <span style="color: yellow;">'DIRS'</span>: [<span style="color: yellow;">os.path.join(BASE_DIR, 'templates')</span>],  <span style="color: green;"># Añadir esta línea</span>
-        <span style="color: yellow;">'APP_DIRS'</span>: <span style="color: red;">True</span>,
-        <span style="color: yellow;">'OPTIONS'</span>: {
-            <span style="color: yellow;">'context_processors'</span>: [
-                <span style="color: yellow;">'django.template.context_processors.debug'</span>,
-                <span style="color: yellow;">'django.template.context_processors.request'</span>,
-                <span style="color: yellow;">'django.contrib.auth.context_processors.auth'</span>,
-                <span style="color: yellow;">'django.contrib.messages.context_processors.messages'</span>,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Ruta a tus plantillas
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
 
-# <span style="color: green;"># Configuración de archivos estáticos</span>
-<span style="color: red;">STATIC_URL</span> = <span style="color: yellow;">'/static/'</span>
-<span style="color: red;">STATICFILES_DIRS</span> = [
-    <span style="color: yellow;">os.path.join(BASE_DIR, 'static')</span>,
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Directorio de archivos estáticos
 ]
 ```
 
-> Asegúrate de tener `import os` al inicio del archivo `settings.py`.
-
 ---
 
-### 📄 backend_tareas/urls.py
+### 📄 `backend_tareas/urls.py`
+
 ```python
 from django.contrib import admin
 from django.urls import path, include
 
-# <span style="color: red;">urlpatterns</span> = [
-    <span style="color: red;">path</span>(<span style="color: yellow;">'admin/'</span>, <span style="color: white;">admin.site.urls</span>),
-    <span style="color: red;">path</span>(<span style="color: yellow;">''</span>, <span style="color: red;">include</span>(<span style="color: yellow;">'app_tareas.urls'</span>)),  <span style="color: green;"># Ruta principal</span>
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('app_tareas.urls')),  # Ruta principal a tu app
 ]
 ```
 
 ---
 
-### 📄 app_tareas/urls.py (crear manualmente)
+### 📄 `app_tareas/urls.py` (crear manualmente)
+
 ```python
 from django.urls import path
 from . import views
 
-# <span style="color: red;">urlpatterns</span> = [
-    <span style="color: red;">path</span>(<span style="color: yellow;">''</span>, <span style="color: white;">views.listar_tareas</span>, <span style="color: yellow;">name='listar_tareas'</span>),
-    <span style="color: red;">path</span>(<span style="color: yellow;">'crear/'</span>, <span style="color: white;">views.crear_tarea</span>, <span style="color: yellow;">name='crear_tarea'</span>),
-    <span style="color: red;">path</span>(<span style="color: yellow;">'actualizar/<int:id>/'</span>, <span style="color: white;">views.actualizar_tarea</span>, <span style="color: yellow;">name='actualizar_tarea'</span>),
-    <span style="color: red;">path</span>(<span style="color: yellow;">'borrar/<int:id>/'</span>, <span style="color: white;">views.borrar_tarea</span>, <span style="color: yellow;">name='borrar_tarea'</span>),
+urlpatterns = [
+    path('', views.listar_tareas, name='listar_tareas'),
+    path('crear/', views.crear_tarea, name='crear_tarea'),
+    path('actualizar/<int:id>/', views.actualizar_tarea, name='actualizar_tarea'),
+    path('borrar/<int:id>/', views.borrar_tarea, name='borrar_tarea'),
 ]
 ```
 
@@ -252,42 +247,46 @@ from . import views
 
 ## 🖥️ Vistas basadas en funciones (CRUD)
 
-### 📄 app_tareas/views.py
+### 📄 `app_tareas/views.py`
+
 ```python
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tarea
 
-# <span style="color: red;">def</span> <span style="color: white;">listar_tareas</span>(<span style="color: white;">request</span>):
-    <span style="color: white;">tareas</span> = <span style="color: white;">Tarea.objects.all</span>()
-    <span style="color: red;">return</span> <span style="color: white;">render</span>(<span style="color: white;">request</span>, <span style="color: yellow;">'app_tareas/listar_tareas.html'</span>, {<span style="color: yellow;">'tareas'</span>: <span style="color: white;">tareas</span>})
+def listar_tareas(request):
+    tareas = Tarea.objects.all()
+    return render(request, 'app_tareas/listar_tareas.html', {'tareas': tareas})
 
-# <span style="color: red;">def</span> <span style="color: white;">crear_tarea</span>(<span style="color: white;">request</span>):
-    <span style="color: red;">if</span> <span style="color: white;">request.method</span> == <span style="color: yellow;">'POST'</span>:
-        <span style="color: white;">tarea_nombre</span> = <span style="color: white;">request.POST.get</span>(<span style="color: yellow;">'tarea'</span>)
-        <span style="color: white;">Tarea.objects.create</span>(<span style="color: white;">tarea=tarea_nombre</span>)
-        <span style="color: red;">return</span> <span style="color: white;">redirect</span>(<span style="color: yellow;">'listar_tareas'</span>)
-    <span style="color: red;">return</span> <span style="color: white;">render</span>(<span style="color: white;">request</span>, <span style="color: yellow;">'app_tareas/crear_tarea.html'</span>)
+def crear_tarea(request):
+    if request.method == 'POST':
+        tarea_nombre = request.POST.get('tarea')
+        Tarea.objects.create(tarea=tarea_nombre)
+        return redirect('listar_tareas')
+    return render(request, 'app_tareas/crear_tarea.html')
 
-# <span style="color: red;">def</span> <span style="color: white;">actualizar_tarea</span>(<span style="color: white;">request</span>, <span style="color: white;">id</span>):
-    <span style="color: white;">tarea</span> = <span style="color: white;">get_object_or_404</span>(<span style="color: white;">Tarea</span>, <span style="color: white;">id=id</span>)
-    <span style="color: red;">if</span> <span style="color: white;">request.method</span> == <span style="color: yellow;">'POST'</span>:
-        <span style="color: white;">tarea.tarea</span> = <span style="color: white;">request.POST.get</span>(<span style="color: yellow;">'tarea'</span>)
-        <span style="color: white;">tarea.completado</span> = <span style="color: yellow;">'completado'</span> <span style="color: red;">in</span> <span style="color: white;">request.POST</span>
-        <span style="color: white;">tarea.save</span>()
-        <span style="color: red;">return</span> <span style="color: white;">redirect</span>(<span style="color: yellow;">'listar_tareas'</span>)
-    <span style="color: red;">return</span> <span style="color: white;">render</span>(<span style="color: white;">request</span>, <span style="color: yellow;">'app_tareas/actualizar_tarea.html'</span>, {<span style="color: yellow;">'tarea'</span>: <span style="color: white;">tarea</span>})
+def actualizar_tarea(request, id):
+    tarea = get_object_or_404(Tarea, id=id)
+    if request.method == 'POST':
+        tarea.tarea = request.POST.get('tarea')
+        tarea.completado = 'completado' in request.POST
+        tarea.save()
+        return redirect('listar_tareas')
+    return render(request, 'app_tareas/actualizar_tarea.html', {'tarea': tarea})
 
-# <span style="color: red;">def</span> <span style="color: white;">borrar_tarea</span>(<span style="color: white;">request</span>, <span style="color: white;">id</span>):
-    <span style="color: white;">tarea</span> = <span style="color: white;">get_object_or_404</span>(<span style="color: white;">Tarea</span>, <span style="color: white;">id=id</span>)
-    <span style="color: white;">tarea.delete</span>()
-    <span style="color: red;">return</span> <span style="color: white;">redirect</span>(<span style="color: yellow;">'listar_tareas'</span>)
+def borrar_tarea(request, id):
+    tarea = get_object_or_404(Tarea, id=id)
+    tarea.delete()
+    return redirect('listar_tareas')
 ```
 
 ---
 
 ## 🎨 Archivos HTML y CSS
 
-### 📁 Crear carpetas:
+### Crear carpetas
+
+Desde la terminal (dentro de `Crud/`):
+
 ```cmd
 mkdir templates\app_tareas
 mkdir static\css
@@ -295,91 +294,91 @@ mkdir static\css
 
 ---
 
-### 📄 static/css/styles.css
+### 📄 `static/css/styles.css`
+
 ```css
-/* <span style="color: green;">Estilos suaves y limpios</span> */
-<span style="color: white;">body</span> {
-    <span style="color: white;">font-family</span>: <span style="color: yellow;">'Segoe UI', Tahoma, Geneva, Verdana, sans-serif</span>;
-    <span style="color: white;">background-color</span>: <span style="color: yellow;">#f0f8ff</span>; <span style="color: green;">/* Azul muy claro */</span>
-    <span style="color: white;">color</span>: <span style="color: yellow;">#2c3e50</span>;
-    <span style="color: white;">margin</span>: <span style="color: yellow;">0</span>;
-    <span style="color: white;">padding</span>: <span style="color: yellow;">20px</span>;
+/* Estilos suaves y limpios */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8ff; /* Azul muy claro */
+    color: #2c3e50;
+    margin: 0;
+    padding: 20px;
 }
 
-<span style="color: white;">.container</span> {
-    <span style="color: white;">max-width</span>: <span style="color: yellow;">800px</span>;
-    <span style="color: white;">margin</span>: <span style="color: yellow;">0 auto</span>;
-    <span style="color: white;">background-color</span>: <span style="color: yellow;">white</span>;
-    <span style="color: white;">padding</span>: <span style="color: yellow;">20px</span>;
-    <span style="color: white;">border-radius</span>: <span style="color: yellow;">8px</span>;
-    <span style="color: white;">box-shadow</span>: <span style="color: yellow;">0 2px 10px rgba(0,0,0,0.1)</span>;
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-<span style="color: white;">h1</span> {
-    <span style="color: white;">text-align</span>: <span style="color: yellow;">center</span>;
-    <span style="color: white;">color</span>: <span style="color: yellow;">#3498db</span>;
+h1 {
+    text-align: center;
+    color: #3498db;
 }
 
-<span style="color: white;">table</span> {
-    <span style="color: white;">width</span>: <span style="color: yellow;">100%</span>;
-    <span style="color: white;">border-collapse</span>: <span style="color: yellow;">collapse</span>;
-    <span style="color: white;">margin</span>: <span style="color: yellow;">20px 0</span>;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
-<span style="color: white;">th, td</span> {
-    <span style="color: white;">padding</span>: <span style="color: yellow;">12px</span>;
-    <span style="color: white;">text-align</span>: <span style="color: yellow;">left</span>;
-    <span style="color: white;">border-bottom</span>: <span style="color: yellow;">1px solid #ddd</span>;
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-<span style="color: white;">th</span> {
-    <span style="color: white;">background-color</span>: <span style="color: yellow;">#ecf0f1</span>;
+th {
+    background-color: #ecf0f1;
 }
 
-<span style="color: white;">.btn</span> {
-    <span style="color: white;">padding</span>: <span style="color: yellow;">8px 12px</span>;
-    <span style="color: white;">margin</span>: <span style="color: yellow;">2px</span>;
-    <span style="color: white;">border</span>: <span style="color: yellow;">none</span>;
-    <span style="color: white;">border-radius</span>: <span style="color: yellow;">4px</span>;
-    <span style="color: white;">cursor</span>: <span style="color: yellow;">pointer</span>;
-    <span style="color: white;">text-decoration</span>: <span style="color: yellow;">none</span>;
-    <span style="color: white;">font-size</span>: <span style="color: yellow;">14px</span>;
+.btn {
+    padding: 8px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
 }
 
-<span style="color: white;">.btn-crear</span> {
-    <span style="color: white;">background-color</span>: <span style="color: yellow;">#2ecc71</span>;
-    <span style="color: white;">color</span>: <span style="color: yellow;">white</span>;
+.btn-crear {
+    background-color: #2ecc71;
 }
 
-<span style="color: white;">.btn-editar</span> {
-    <span style="color: white;">background-color</span>: <span style="color: yellow;">#3498db</span>;
-    <span style="color: white;">color</span>: <span style="color: yellow;">white</span>;
+.btn-editar {
+    background-color: #3498db;
 }
 
-<span style="color: white;">.btn-borrar</span> {
-    <span style="color: white;">background-color</span>: <span style="color: yellow;">#e74c3c</span>;
-    <span style="color: white;">color</span>: <span style="color: yellow;">white</span>;
+.btn-borrar {
+    background-color: #e74c3c;
 }
 
-<span style="color: white;">form</span> {
-    <span style="color: white;">margin</span>: <span style="color: yellow;">15px 0</span>;
+form {
+    margin: 15px 0;
 }
 
-<span style="color: white;">input[type="text"]</span> {
-    <span style="color: white;">width</span>: <span style="color: yellow;">70%</span>;
-    <span style="color: white;">padding</span>: <span style="color: yellow;">10px</span>;
-    <span style="color: white;">border</span>: <span style="color: yellow;">1px solid #ccc</span>;
-    <span style="color: white;">border-radius</span>: <span style="color: yellow;">4px</span>;
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-<span style="color: white;">.checkbox</span> {
-    <span style="color: white;">margin-left</span>: <span style="color: yellow;">10px</span>;
+.checkbox {
+    margin-left: 10px;
 }
 ```
 
 ---
 
-### 📄 templates/app_tareas/listar_tareas.html
+### 📄 `templates/app_tareas/listar_tareas.html`
+
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -421,7 +420,8 @@ mkdir static\css
 
 ---
 
-### 📄 templates/app_tareas/crear_tarea.html
+### 📄 `templates/app_tareas/crear_tarea.html`
+
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -446,7 +446,8 @@ mkdir static\css
 
 ---
 
-### 📄 templates/app_tareas/actualizar_tarea.html
+### 📄 `templates/app_tareas/actualizar_tarea.html`
+
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -476,6 +477,7 @@ mkdir static\css
 ---
 
 ## ▶️ Final: Ejecutar el servidor
+
 ```cmd
 python manage.py runserver
 ```
@@ -486,24 +488,24 @@ python manage.py runserver
 
 ## ✅ ¡Listo! Has creado una aplicación CRUD completa de tareas en Django.
 
-### 📌 Resumen de funcionalidades:
-- Listar tareas
-- Crear nuevas tareas
-- Editar tareas existentes
-- Marcar como completadas
-- Borrar tareas
+### Funcionalidades:
+- ✅ Listar tareas
+- ✅ Crear tareas
+- ✅ Editar tareas
+- ✅ Marcar como completadas
+- ✅ Eliminar tareas
 
-### 🎨 Estilo:
-- Colores suaves
+### Características:
 - Sin Bootstrap
-- CSS personalizado
-- HTML semántico y completo
+- Estilo con CSS personalizado
+- Colores suaves
+- HTML completo y semántico
+- No se usa `forms.py`
+- Sin validaciones (como se solicitó)
 
 ---
 
-> ✅ Este material es ideal para estudiantes que inician con Django.  
-> ✅ Todos los pasos están detallados.  
-> ✅ Código completo y funcional.
+Este material es ideal para estudiantes que inician con Django.  
+Todos los pasos están claros, detallados y listos para seguir.
 
 ¡Éxito en tu aprendizaje! 🚀
-```
